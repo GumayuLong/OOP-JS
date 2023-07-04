@@ -46,5 +46,28 @@ function DSSV() {
             return sv; 
         }
     };
-    this.capNhatSV = function(){};
+    this.capNhatSV = function(sv){
+        // tìm vị trí sv cần update
+        var index = this._timViTri(sv.maSV);
+        if (index !== -1){
+            //update
+            this.arr[index] = sv;
+        }
+    };
 }
+
+// this.timKiemSV = function(){};
+DSSV.prototype.timKiemSV = function(keyword){
+    var mangTimKiem = [];
+    for (var i = 0; i < this.arr.length; i++){
+        var sv = this.arr[i];
+        // keyword => convert chữ thường
+        var keywordLowerCase = keyword.toLowerCase();
+        // sv.tenSV => convert chữ thường
+        var tenSVLowerCase = sv.tenSV.toLowerCase();
+        if (tenSVLowerCase.indexOf(keywordLowerCase) !== -1) {
+			mangTimKiem.push(sv);
+		}
+    }
+    return mangTimKiem;
+};

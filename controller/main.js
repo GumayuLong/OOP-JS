@@ -81,6 +81,20 @@ function renderTable(data){
 	getEle("tbodySinhVien").innerHTML = content;
 }
 
+// tìm kiếm SV
+// cách 1
+// getEle("txtSearch").addEventListener("keyup", function(){
+// 	// console.log("123");
+// });
+
+//cách 2
+function searchSV(){
+	var txtSearch = getEle("txtSearch").value;
+	var mangTimKiem = dssv.timKiemSV(txtSearch);
+	renderTable(mangTimKiem);
+}
+getEle("txtSearch").addEventListener("keyup", searchSV);
+
 // Sửa sinh viên
 function suaSV(maSV){
 	// console.log(maSV); //kiểm tra nút sửa nhận được sự kiện chưa
@@ -101,7 +115,22 @@ function suaSV(maSV){
 		getEle("txtDiemToan").value = sv.diemToan;
 		getEle("txtDiemLy").value = sv.diemLy;
 		getEle("txtDiemHoa").value = sv.diemHoa;
+
+		//DOM id của nút cập nhật cho nó show ra
+		getEle("btnCapNhatSV").style.display = "inline-block";
+		// DOM #btnThemSV => hide
+		getEle("btnThemSV").style.display = "none";
 	}
+}
+
+// Cập nhật
+getEle("btnCapNhatSV").onclick = function(){
+	// Lấy thông tin của user
+	var sv = layThongTinSV();
+	// console.log(sv);
+	dssv.capNhatSV(sv);
+	renderTable(dssv.arr);
+	setLocalStorage();
 }
 
 // Xóa sinh viên
